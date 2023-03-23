@@ -1,0 +1,23 @@
+struct ToraLevel2Order : TORALEV2API::CTORATstpLev2OrderDetailField
+{
+    ToraLevel2Order(const timestamp_t& time, const TORALEV2API::CTORATstpLev2OrderDetailField& payload):
+            capture_timestamp{static_cast<uint64_t>(time.getNanosecondsSinceEpoch().value())},
+            TORALEV2API::CTORATstpLev2OrderDetailField{payload} {}
+    uint64_t capture_timestamp;
+};
+
+struct ToraLevel2Transaction : TORALEV2API::CTORATstpLev2TransactionField
+{
+    ToraLevel2Transaction(const timestamp_t& time, const TORALEV2API::CTORATstpLev2TransactionField& payload):
+            capture_timestamp{static_cast<uint64_t>(time.getNanosecondsSinceEpoch().value())},
+            TORALEV2API::CTORATstpLev2TransactionField{payload} {}
+    uint64_t capture_timestamp;
+};
+
+struct IToraLevel2MarketDataService
+{
+
+    virtual IOrderEventType& Level2OrderEvent() = 0;
+
+    virtual ITransactionEventType& Level2TransactionEvent() = 0;
+};
