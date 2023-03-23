@@ -21,3 +21,33 @@ struct IToraLevel2MarketDataService
 
     virtual ITransactionEventType& Level2TransactionEvent() = 0;
 };
+
+    struct RodimusExtTrade {
+        uint64_t RecvTime;  // recv_time
+        uint64_t SrcTime;  // recv_time => plz fill this with exchange time like 150000000
+        int32_t GroupID;  // channel
+        uint64_t Index;  // index
+        uint64_t BuyIndex; // bid_index
+        uint64_t AskIndex; // ask_index
+        double Price;  // price
+        uint32_t Volume;  // volume
+        char Kind;  // type (F: filled, C: cancel, N: unknown)
+        char FunctionCode;  // direction (B: buy, S: sell, N: unknown)
+    };
+
+    struct RodimusExtOrder {
+        uint64_t SrcTime;  // same as time, ignore
+        uint64_t RecvTime;  // recv_time => plz fill this with exchange time like 150000000
+        int32_t GroupID;  // channel
+        uint64_t Index;  // index
+        double Price;  // price
+        uint32_t Volume;  // volume
+        char Kind;  // type (L: limit order, M: market order, U: best own side, C: cancel, N: unknown)
+        char Direction;  // direction (B: buy, S: sell)
+        uint64_t OrderNo;  // order_no
+    };
+
+    static constexpr char CTS_FILLED = 'F';
+    static constexpr char CTS_CANCELED = 'C';
+    static constexpr char CTS_BUY = 'B';
+    static constexpr char CTS_SELL = 'S';
